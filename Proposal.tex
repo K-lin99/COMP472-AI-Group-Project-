@@ -1,0 +1,129 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage[rebuttal]{cvpr}
+
+% Include other packages here, before hyperref.
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+
+
+% If you comment hyperref and then uncomment it, you should delete
+% egpaper.aux before re-running latex.  (Or just hit 'q' on the first latex
+% run, let it finish, and you should be clear).
+\usepackage[pagebackref,breaklinks,colorlinks,bookmarks=false]{hyperref}
+
+% Support for easy cross-referencing
+\usepackage[capitalize]{cleveref}
+\crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
+\Crefname{table}{Table}{Tables}
+\crefname{table}{Tab.}{Tabs.}
+
+% If you wish to avoid re-using figure, table, and equation numbers from
+% the main paper, please uncomment the following and change the numbers
+% appropriately.
+%\setcounter{figure}{2}
+%\setcounter{table}{1}
+%\setcounter{equation}{2}
+
+% If you wish to avoid re-using reference numbers from the main paper,
+% please uncomment the following and change the counter for `enumiv' to
+% the number of references you have in the main paper (here, 6).
+%\let\oldthebibliography=\thebibliography
+%\let\oldendthebibliography=\endthebibliography
+%\renewenvironment{thebibliography}[1]{%
+%     \oldthebibliography{#1}%
+%     \setcounter{enumiv}{6}%
+%}{\oldendthebibliography}
+
+
+%%%%%%%%% COMP 472 - Project  - PLEASE UPDATE
+\def\cvprPaperID{COMP 472 - Project} % *** Enter the CVPR Paper ID here
+\def\confName{Project Proposal}
+\def\confYear{2026}
+
+\begin{document}
+
+%%%%%%%%% COMP 472 - Project Proposal- PLEASE UPDATE
+\title{\LaTeX\ COMP 472 - Project Proposal}  % **** Enter the paper title here
+
+
+\maketitle
+\thispagestyle{empty}
+\appendix
+
+%%%%%%%%% BODY TEXT - ENTER YOUR RESPONSE BELOW
+\section{Team}
+
+\begin{enumerate}
+	\item[] Lucas Graham 40249532
+	\item[] Dominique Proulx 40177566
+	\item[] Valeriia Nikandrova 40157880
+	\item[] Azmi Abidi 40248132
+	\item[] Kalin Milanov 40179417
+\end{enumerate}
+
+
+%-------------------------------------------------------------------------
+
+\section{Problem Statement and Application}
+\textcolor{red}{Provide a background about the topic and specify why the problem is important?
+What are the associated challenges of your selected problem application? What are your expectations/goals
+throughout developing the application of interest?}
+%------------------------------------------------------------------------
+\section{Image Dataset Selection}
+
+
+\textcolor{red}{Explain your image dataset(s) and provide the statistical details of your data (e.g. number of
+images, image size, image format, etc). Specify where you have found the dataset(s) and means of access to the data
+(e.g. published paper, downlink, etc). You may consult Kaggle to find possible image datasets of interest, or you can
+use any data you have collected from your previous research activity or have access to.}
+
+\subsection{Dataset 1}
+\subsection{Dataset 2}
+\subsection{Dataset 3}
+
+%-------------------------------------------------------------------------
+\section{Possible Methodology}
+
+{\textcolor{red}{Highlight the “possible methods” you could use to solve the problem. Specify how you will be
+handling/processing the data to train your deep learning pipeline using a CNN model. Furthermore, discuss the
+metrics that will be used to assess and evaluate the pipeline, and your expectations regarding the kind of
+results/performance to be achieved. You need to discuss the possible method(s) and how the obtained results will be
+compared and analyzed to each other. Further, you need to discuss the potentials of your analysis and comparisons
+and how they can be useful for scientists and engineering in the field. }
+%------------------------------------------------------------------------
+\section{Gantt Chart}
+{\textcolor{red}{On 2nd page
+use an additional page (supplemental material) to illustrate a Gantt chart of the project development to
+list (a) schedules and (b) items of milestones and deliverables. Note that you cannot use this page to extend your
+proposal description. }
+
+{\textcolor{red}When placing figures in \LaTeX, it is almost always best to use \verb+\includegraphics+, and to specify the  figure width as a multiple of the line width as in the example below
+{\small\begin{verbatim}
+   \usepackage{graphicx} ...
+   \includegraphics[width=0.8\linewidth]
+                   {myfile.pdf}
+\end{verbatim}
+}
+\begin{figure}[t]
+	\centering
+	\fbox{\rule{0pt}{0.5in} \rule{0.9\linewidth}{0pt}}
+	%\includegraphics[width=0.8\linewidth]{egfigure.eps}
+	\caption{Example of caption.  It is set in Roman so that mathematics
+		(always set in Roman: $B \sin A = A \sin B$) may be included without an
+		ugly clash.}
+	\label{fig:onecol}
+\end{figure}
+
+%%%%%%%%% REFERENCES
+{\textcolor{red}{You can add an additional page (if needed) to extend your reference list cited in your proposal. The
+citations may include, but not limited to, published papers and domain links. (include a link to your dataset). Please
+note that failure to properly cite your references constitutes to a plagiarism and will be deemed for reporting}
+{\small
+\bibliographystyle{ieee_fullname}
+\bibliography{egbib}
+}
+
+\end{document}

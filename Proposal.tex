@@ -6,7 +6,12 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{booktabs}
-
+\usepackage{url}
+\usepackage{enumitem}
+\usepackage{caption}
+\captionsetup{skip=2pt}
+\usepackage{wrapfig}
+\usepackage{float}
 
 % If you comment hyperref and then uncomment it, you should delete
 % egpaper.aux before re-running latex.  (Or just hit 'q' on the first latex
@@ -46,7 +51,7 @@
 \begin{document}
 
 %%%%%%%%% COMP 472 - Project Proposal- PLEASE UPDATE
-\title{\LaTeX\ COMP 472 - Project Proposal}  % **** Enter the paper title here
+\title{\ COMP 472 - Project Proposal}  % **** Enter the paper title here
 
 
 \maketitle
@@ -54,76 +59,63 @@
 \appendix
 
 %%%%%%%%% BODY TEXT - ENTER YOUR RESPONSE BELOW
-\section{Team}
+\textbf{Team}
+Lucas Graham 40249532 - Dominique Proulx 40177566 - Valeriia Nikandrova 40157880 - Azmi Abidi 40248132 - Kalin Milanov 40179417
 
-\begin{enumerate}
-	\item[] Lucas Graham 40249532
-	\item[] Dominique Proulx 40177566
-	\item[] Valeriia Nikandrova 40157880
-	\item[] Azmi Abidi 40248132
-	\item[] Kalin Milanov 40179417
-\end{enumerate}
 
 
 %-------------------------------------------------------------------------
 
-\section{Problem Statement and Application}
-\textcolor{red}{Provide a background about the topic and specify why the problem is important?
-What are the associated challenges of your selected problem application? What are your expectations/goals
-throughout developing the application of interest?}
+\textbf{Problem Statement and Application.} Our team has selected the detection and classification of various brain tumor types from MRI images of the brain for our project. Although MRI technology is extremely effective at detecting brain tumors, early diagnosis of these ailments is challenging. Early symptoms of brain tumors often masquerade as more benign conditions, such as chronic headaches, seizures and changes in mental faculties like memory and concentration. Additionally, the slow growth of brain tumors over the course of many years makes them difficult to identify in the initial stages. 
+
+In general, catching cancerous growth early is essential for successful and lasting treatment of the disease. This is especially true for brain-related cancers, for which surgical remedies are complicated at advanced stages of tumor growth. An early detection system is an essential weapon in the war against brain cancer. In this project, we aim to evaluate the strengths and weaknesses of various computational neural network (CNN) architectures in identifying brain tumors. 
+
 %------------------------------------------------------------------------
-\section{Image Dataset Selection}
-
-
-\textcolor{red}{Explain your image dataset(s) and provide the statistical details of your data (e.g. number of
-images, image size, image format, etc). Specify where you have found the dataset(s) and means of access to the data
-(e.g. published paper, downlink, etc). You may consult Kaggle to find possible image datasets of interest, or you can
-use any data you have collected from your previous research activity or have access to.}
-
-\subsection{Dataset 1}
-\subsection{Dataset 2}
-\subsection{Dataset 3}
-
-%-------------------------------------------------------------------------
-\section{Possible Methodology}
-
-{\textcolor{red}{Highlight the “possible methods” you could use to solve the problem. Specify how you will be
-handling/processing the data to train your deep learning pipeline using a CNN model. Furthermore, discuss the
-metrics that will be used to assess and evaluate the pipeline, and your expectations regarding the kind of
-results/performance to be achieved. You need to discuss the possible method(s) and how the obtained results will be
-compared and analyzed to each other. Further, you need to discuss the potentials of your analysis and comparisons
-and how they can be useful for scientists and engineering in the field. }
-%------------------------------------------------------------------------
-\section{Gantt Chart}
-{\textcolor{red}{On 2nd page
-use an additional page (supplemental material) to illustrate a Gantt chart of the project development to
-list (a) schedules and (b) items of milestones and deliverables. Note that you cannot use this page to extend your
-proposal description. }
-
-{\textcolor{red}When placing figures in \LaTeX, it is almost always best to use \verb+\includegraphics+, and to specify the  figure width as a multiple of the line width as in the example below
-{\small\begin{verbatim}
-   \usepackage{graphicx} ...
-   \includegraphics[width=0.8\linewidth]
-                   {myfile.pdf}
-\end{verbatim}
-}
-\begin{figure}[t]
+\textbf{Image Dataset Selection.} We selected three publicly available brain MRI image datasets that differ significantly in size and number of classes to enable a progressive evaluation of CNN architectures. The Brain MRI Dataset from UniqueData on huggingface\cite{dataset1} contains 275 images across 10 classes, representing a small dataset with relatively fine-grained labels, making it suitable for testing model behavior under limited data conditions. The next dataset\cite{dataset2} provided by Fernando Feltrin\cite{Feltrin} includes approximately 4,500 images distributed over 44 tumor-related classes, introducing high class diversity and increased inter-class similarity, which raises the classification difficulty.
+ \begin{wrapfigure}{l}{0.40\columnwidth}  % r = right side, l = left side
 	\centering
-	\fbox{\rule{0pt}{0.5in} \rule{0.9\linewidth}{0pt}}
-	%\includegraphics[width=0.8\linewidth]{egfigure.eps}
-	\caption{Example of caption.  It is set in Roman so that mathematics
-		(always set in Roman: $B \sin A = A \sin B$) may be included without an
-		ugly clash.}
-	\label{fig:onecol}
-\end{figure}
+	\includegraphics[width=0.45\columnwidth]{datasetcomparison.jpg}
+	\caption{Comparison of dataset images}
+	\label{fig:yourlabel}
+	   \vspace{-12pt}
+\end{wrapfigure} The Brain Tumor MRI Dataset\cite{dataset3} by Masoud Nickparvar\cite{masoud} consists of 7,023 MRI images categorized into 4 classes (Glioma, Meningioma, Pituitary tumor, and No Tumor), providing a larger dataset with fewer but clinically meaningful categories and greater image variability. All datasets use standard image formats (JPG/PNG) with varying resolutions that will be normalized during preprocessing. This progression from a very small multi-class dataset, to a medium-sized highly fine-grained dataset, to a larger clinically structured multi-class dataset creates a controlled framework to analyze how CNN models of different capacities perform as dataset scale and class granularity change.
 
+
+%-------------------------------------------------------------------------
+\textbf{Possible Methodology.} Given that the datasets come from different sources and have inconsistent characteristics, we preprocess them into a standardized format. \cite{preprocess} Since we are using PyTorch for this project, all of our images will need to be converted into tensors of the same size\cite{datasetsize} and dimensions, which is the fundamental data type used in the PyTorch library.
+
+The choices in CNN architectures allow us to observe how different models perform depending on their size and the complexity of their datasets, while also ensuring that the models can be trained within the computational resources of average GPUs. MobileNet V2\cite{mobilenet} is a lightweight architecture design for low-resource environments, making it ideal for evaluating the performance of compact models on medical imaging. ResNet-34\cite{resnet} is a larger architecture that enables stable training thanks to its residual connections. EfficientNet-B2\cite{efficientnet} is medium sized compared to the aforementioned architectures. We can expect the three CNN architectures to show varying levels of performance depending on the dataset’s complexity. Since MobileNet V2 is the lightest model, it is expected to train quickly on the smallest dataset, but may struggle with the biggest dataset due to its limited capacity. ResNet-34 could provide a solid balance between accuracy and computational cost, likely outperforming MobileNet on the larger datasets. Despite EfficentNet-B2 being lighter than ResNet in terms of FLOPs and parameter counts, it uses a compound scaling strategy to balance depth, width and resolution, and should therefore offer the best overall performance.
+By studying how model capacity, dataset complexity, and transfer learning influence performance, this project could help identify which architectures are best suited for MRI-based tumor classification given different resource constraints. Furthermore, this research could guide the design of more reliable diagnostic tools and showcase the trade-offs between lightweight and larger architectures.
+
+Several metrics will be used to evaluate the performance of the CNN architectures. Accuracy measures the proportion of correct predictions across all classes. Precision measures the correctness when predicting a specific class, helping to detect false positives. Recall measures how many images that belong to a specific class were correctly predicted so as to detect false negatives. The F1-score quantifies the balance between precision and recall. Mean Average Precision (MAP) assesses whether a model is consistently correct about each given class, which is especially helpful for datasets with multiple classes where accuracy alone is less informative due to less detectable or rarer classes. Loss curves track the inaccuracy of a model over time to observe the learning rate across its training.\newpage
+
+
+
+
+\newpage
+%------------------------------------------------------------------------
+\noindent\textbf{Project Gantt Chart} \\
+\noindent\href{https://1drv.ms/u/c/245f806ee8e62c91/IQAAAF37pRNSTa8i4gDrTeaiAWHvFKj_g68jTqpUX0hbesg?e=5ZMgTB}{Gantt Chart File}
+
+\vspace{10pt}
+
+\begin{center}
+	\includegraphics[width=0.75\textwidth]{COMP472_Project_Gantt.png}
+	\captionof{figure}{COMP 472 - Group C Project Gantt Chart}
+	\label{fig:fullwidth}
+	
+	\vspace{10pt}
+	
+	\includegraphics[width=0.45\textwidth]{COMP472_Project_Gantt-2.png}
+	\captionof{figure}{COMP 472 - Group C Project Gantt Chart Details}
+	\label{fig:fullwidth2}
+\end{center}
+
+\clearpage
 %%%%%%%%% REFERENCES
-{\textcolor{red}{You can add an additional page (if needed) to extend your reference list cited in your proposal. The
-citations may include, but not limited to, published papers and domain links. (include a link to your dataset). Please
-note that failure to properly cite your references constitutes to a plagiarism and will be deemed for reporting}
-{\small
-\bibliographystyle{ieee_fullname}
+
+   \bibliographystyle{ieeetr}
 \bibliography{egbib}
-}
+
 
 \end{document}

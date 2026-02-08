@@ -44,14 +44,14 @@
 
 
 %%%%%%%%% COMP 472 - Project  - PLEASE UPDATE
-\def\cvprPaperID{COMP 472 - Project} % *** Enter the CVPR Paper ID here
+\def\cvprPaperID{Classification of MRI images for brain tumor diagnosis} % *** Enter the CVPR Paper ID here
 \def\confName{Project Proposal}
 \def\confYear{2026}
 
 \begin{document}
 
 %%%%%%%%% COMP 472 - Project Proposal- PLEASE UPDATE
-\title{\ COMP 472 - Project Proposal}  % **** Enter the paper title here
+\title{Classification of MRI images for brain tumor diagnosis}  % **** Enter the paper title here
 
 
 \maketitle
@@ -59,30 +59,47 @@
 \appendix
 
 %%%%%%%%% BODY TEXT - ENTER YOUR RESPONSE BELOW
-\textbf{Team}
-Lucas Graham 40249532 - Dominique Proulx 40177566 - Valeriia Nikandrova 40157880 - Azmi Abidi 40248132 - Kalin Milanov 40179417
-
-
-
 %-------------------------------------------------------------------------
-
-\textbf{Problem Statement and Application.} Our team has selected the detection and classification of various brain tumor types from MRI images of the brain for our project. Although MRI technology is extremely effective at detecting brain tumors, early diagnosis of these ailments is challenging. Early symptoms of brain tumors often masquerade as more benign conditions, such as chronic headaches, seizures and changes in mental faculties like memory and concentration. Additionally, the slow growth of brain tumors over the course of many years makes them difficult to identify in the initial stages. 
-
-In general, catching cancerous growth early is essential for successful and lasting treatment of the disease. This is especially true for brain-related cancers, for which surgical remedies are complicated at advanced stages of tumor growth. An early detection system is an essential weapon in the war against brain cancer. In this project, we aim to evaluate the strengths and weaknesses of various computational neural network (CNN) architectures in identifying brain tumors. 
+\textbf{Problem Statement and Application.} Our team has selected the detection and classification of various brain tumor types from MRI images of the brain for our project. In this project, we aim to evaluate the strengths and weaknesses of various Convolutional Neural Network (CNN) architectures in identifying brain tumors. Although MRI technology is extremely effective at imaging brain tumors\cite{mri}, automated tumor classification presents several computational challenges. MRI scans exhibit significant variability in contrast, resolution, and acquisition protocols\cite{mri_variability}, which affects feature consistency across samples. Moreover, different tumor types often share similar visual characteristics, making inter-class discrimination difficult. The task is further complicated by class imbalance, limited dataset sizes for certain tumor categories, and intra-class variability in tumor shape, size, and location. These factors make brain tumor classification a demanding computer vision problem, requiring robust CNN architectures capable of learning discriminative features despite data heterogeneity and subtle visual differences.
 
 %------------------------------------------------------------------------
-\textbf{Image Dataset Selection.} We selected three publicly available brain MRI image datasets that differ significantly in size and number of classes to enable a progressive evaluation of CNN architectures. The Brain MRI Dataset from UniqueData on huggingface\cite{dataset1} contains 275 images across 10 classes, representing a small dataset with relatively fine-grained labels, making it suitable for testing model behavior under limited data conditions. The next dataset\cite{dataset2} provided by Fernando Feltrin\cite{Feltrin} includes approximately 4,500 images distributed over 44 tumor-related classes, introducing high class diversity and increased inter-class similarity, which raises the classification difficulty.
+\textbf{Image Dataset Selection.} We selected three publicly available brain MRI image datasets that differ in size and number of classes to enable a progressive evaluation of CNN architectures.
+\begin{table}[h]
+				\vspace{-4mm}
+	\centering
+	\small
+	\setlength{\tabcolsep}{4pt}
+	\renewcommand{\arraystretch}{0.9}
+	\begin{tabular}{|l|c|c|c|p{2cm}|}
+		\hline
+		Dataset & Images & Classes & Images/Class & Image Size \\
+		\hline
+		1\cite{dataset1} & 3264 & 4 & 826/822/395/827 & Mixed, max 630×630 \\
+		\hline
+		2\cite{dataset2} & 7023 & 4 & 1321/1339/1595/1457 & 512×512 \\
+		\hline
+		3\cite{dataset3} & 4478 & 44 & 17--272 & Mixed, max 630×630 \\
+		\hline
+	\end{tabular}
+	\caption{Dataset overview}
+	\vspace{-4mm}
+\end{table}
+The first dataset, Brain Tumor Classification (MRI)\cite{dataset1}, and the second dataset, Brain Tumor MRI Dataset\cite{dataset2}, both categorize images into 4 classes (Glioma, Meningioma, Pituitary tumor, and No Tumor), providing meaningful common brain tumor categories\cite{commonbraintumor} with varying image quantities. While the first dataset contains a limited number of images, the second offers more than double the volume, enabling us to examine how CNN models perform with identical class structures but different dataset sizes.
  \begin{wrapfigure}{l}{0.40\columnwidth}  % r = right side, l = left side
+ 	\vspace{-14pt}
 	\centering
 	\includegraphics[width=0.45\columnwidth]{datasetcomparison.jpg}
 	\caption{Comparison of dataset images}
 	\label{fig:yourlabel}
-	   \vspace{-12pt}
-\end{wrapfigure} The Brain Tumor MRI Dataset\cite{dataset3} by Masoud Nickparvar\cite{masoud} consists of 7,023 MRI images categorized into 4 classes (Glioma, Meningioma, Pituitary tumor, and No Tumor), providing a larger dataset with fewer but clinically meaningful categories and greater image variability. All datasets use standard image formats (JPG/PNG) with varying resolutions that will be normalized during preprocessing. This progression from a very small multi-class dataset, to a medium-sized highly fine-grained dataset, to a larger clinically structured multi-class dataset creates a controlled framework to analyze how CNN models of different capacities perform as dataset scale and class granularity change.
+	\vspace{-12pt}
+\end{wrapfigure} 
+ The third dataset\cite{dataset3}, despite having fewer total images ,introduces a higher class diversity with 44 different types of brain tumors, lesions, and normal brain tissue to compare. Each were captured using different MRI sequences, which significantly raises the classification difficulty. This progression from a small 4-class dataset, to a larger 4-class dataset, to a medium-sized highly fine-grained 44-class dataset creates a controlled framework to analyze how CNN models of different capacities perform as dataset scale and class granularity change.
 
 
 %-------------------------------------------------------------------------
-\textbf{Possible Methodology.} Given that the datasets come from different sources and have inconsistent characteristics, we preprocess them into a standardized format. \cite{preprocess} Since we are using PyTorch for this project, all of our images will need to be converted into tensors of the same size\cite{datasetsize} and dimensions, which is the fundamental data type used in the PyTorch library.
+\textbf{Possible Methodology.}Given the datasets come from different sources and vary in size, format and image resolution, we preprocess them into standardized format. To prevent overfitting due to the small size of the available datasets, we apply data augmentation techniques to  increase the number of images used to train the model by transforming the dataset's images.\cite{dataaugment} These transformation includes geometric transformations such as small rotations, cropping, zooming in , and color space transformations like changing brightness.\cite{datacamp_augmentation}
+Since we are using PyTorch for this project, all of our images will need to converted into tensors of the same size 224x224 and dimension, which is the fundamental data type used in the PyTorch library. [Source]
+
 
 The choices in CNN architectures allow us to observe how different models perform depending on their size and the complexity of their datasets, while also ensuring that the models can be trained within the computational resources of average GPUs. MobileNet V2\cite{mobilenet} is a lightweight architecture design for low-resource environments, making it ideal for evaluating the performance of compact models on medical imaging. ResNet-34\cite{resnet} is a larger architecture that enables stable training thanks to its residual connections. EfficientNet-B2\cite{efficientnet} is medium sized compared to the aforementioned architectures. We can expect the three CNN architectures to show varying levels of performance depending on the dataset’s complexity. Since MobileNet V2 is the lightest model, it is expected to train quickly on the smallest dataset, but may struggle with the biggest dataset due to its limited capacity. ResNet-34 could provide a solid balance between accuracy and computational cost, likely outperforming MobileNet on the larger datasets. Despite EfficentNet-B2 being lighter than ResNet in terms of FLOPs and parameter counts, it uses a compound scaling strategy to balance depth, width and resolution, and should therefore offer the best overall performance.
 By studying how model capacity, dataset complexity, and transfer learning influence performance, this project could help identify which architectures are best suited for MRI-based tumor classification given different resource constraints. Furthermore, this research could guide the design of more reliable diagnostic tools and showcase the trade-offs between lightweight and larger architectures.
@@ -90,23 +107,21 @@ By studying how model capacity, dataset complexity, and transfer learning influe
 Several metrics will be used to evaluate the performance of the CNN architectures. Accuracy measures the proportion of correct predictions across all classes. Precision measures the correctness when predicting a specific class, helping to detect false positives. Recall measures how many images that belong to a specific class were correctly predicted so as to detect false negatives. The F1-score quantifies the balance between precision and recall. Mean Average Precision (MAP) assesses whether a model is consistently correct about each given class, which is especially helpful for datasets with multiple classes where accuracy alone is less informative due to less detectable or rarer classes. Loss curves track the inaccuracy of a model over time to observe the learning rate across its training.\newpage
 
 
-
-
 \newpage
 %------------------------------------------------------------------------
 \noindent\textbf{Project Gantt Chart} \\
-\noindent\href{https://1drv.ms/u/c/245f806ee8e62c91/IQAAAF37pRNSTa8i4gDrTeaiAWHvFKj_g68jTqpUX0hbesg?e=5ZMgTB}{Gantt Chart File}
+\noindent\href{https://1drv.ms/i/c/245f806ee8e62c91/IQDAWdYL6_TwTbmw-qErISu8AeUMVQ0f43GwPqAy-swBEaQ?e=i2Yo0U}{Gantt Chart File}
 
 \vspace{10pt}
 
 \begin{center}
-	\includegraphics[width=0.75\textwidth]{COMP472_Project_Gantt.png}
+	\includegraphics[width=1.00\textwidth]{COMP472_Project_Gantt.png}
 	\captionof{figure}{COMP 472 - Group C Project Gantt Chart}
 	\label{fig:fullwidth}
 	
 	\vspace{10pt}
 	
-	\includegraphics[width=0.45\textwidth]{COMP472_Project_Gantt-2.png}
+	\includegraphics[width=0.60\textwidth]{COMP472_Project_Gantt-2.png}
 	\captionof{figure}{COMP 472 - Group C Project Gantt Chart Details}
 	\label{fig:fullwidth2}
 \end{center}

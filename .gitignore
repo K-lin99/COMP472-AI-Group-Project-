@@ -1,0 +1,31 @@
+# ── Datasets ──────────────────────────────────────────────────────
+Training Models/data/dataset1/
+Training Models/data/dataset2/
+Training Models/data/dataset3/
+Training Models/data/*.zip
+
+# ── Preprocessed tensors ──────────────────────────────────────────
+Training Models/data/*.pt
+brain_mri_preprocessed/
+
+# ── Model outputs ─────────────────────────────────────────────────
+outputs/
+*.pth
+
+# ── Python ────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.env
+*.egg-info/
+dist/
+build/
+
+# ── Jupyter ───────────────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── OS ────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Kaggle credentials ────────────────────────────────────────────
+kaggle.json

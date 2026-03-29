@@ -1,0 +1,68 @@
+
+<style>
+  .stat-card { background: var(--color-background-secondary); border-radius: 8px; padding: 12px 16px; text-align: center; }
+  .stat-val { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+  .stat-lbl { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+  .bar-label { font-size: 11px; color: var(--color-text-secondary); width: 190px; text-align: right; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-wrap { flex: 1; height: 16px; background: var(--color-background-secondary); border-radius: 3px; position: relative; }
+  .bar-fill { height: 100%; border-radius: 3px; }
+  .bar-count { font-size: 11px; color: var(--color-text-secondary); width: 36px; flex-shrink: 0; }
+</style>
+
+<div style="padding: 1rem 0;">
+  <div style="display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 10px; margin-bottom: 1.5rem;">
+    <div class="stat-card"><div class="stat-val">44</div><div class="stat-lbl">classes</div></div>
+    <div class="stat-card"><div class="stat-val">4,478</div><div class="stat-lbl">total images</div></div>
+    <div class="stat-card"><div class="stat-val">101.8</div><div class="stat-lbl">mean / class</div></div>
+    <div class="stat-card"><div class="stat-val">66.5</div><div class="stat-lbl">median / class</div></div>
+    <div class="stat-card"><div class="stat-val">±84.7</div><div class="stat-lbl">std deviation</div></div>
+  </div>
+
+  <div id="chart"></div>
+
+  <div style="display: flex; align-items: center; gap: 16px; margin-top: 10px; font-size: 11px; color: var(--color-text-secondary);">
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;border-radius:2px;background:#3b82f6;display:inline-block;"></span>below mean</span>
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;border-radius:2px;background:#8b5cf6;display:inline-block;"></span>above mean</span>
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:2px;height:12px;background:#ef4444;display:inline-block;"></span>mean (101.8)</span>
+  </div>
+</div>
+
+<script>
+const data = [
+  ["Meningioma T1C+", 369],["Meningioma T1", 272],["NORMAL T2", 271],["NORMAL T1", 251],
+  ["Meningioma T2", 233],["Astrocitoma T1C+", 232],["Neurocitoma T1C+", 223],["Schwannoma T1C+", 194],
+  ["Astrocitoma T1", 176],["Astrocitoma T2", 171],["Schwannoma T1", 148],["Neurocitoma T1", 130],
+  ["Schwannoma T2", 123],["Carcinoma T1C+", 112],["Papiloma T1C+", 108],["Neurocitoma T2", 104],
+  ["Glioblastoma T1C+", 94],["Oligodendroglioma T1", 86],["Tuberculoma T1C+", 84],["Carcinoma T2", 73],
+  ["Oligodendroglioma T1C+", 72],["Meduloblastoma T1C+", 67],["Papiloma T1", 66],["Oligodendroglioma T2", 66],
+  ["Carcinoma T1", 66],["Papiloma T2", 63],["Ependimoma T2", 57],["Glioblastoma T1", 55],
+  ["Glioblastoma T2", 55],["Ependimoma T1C+", 48],["Ependimoma T1", 45],["Meduloblastoma T2", 41],
+  ["Germinoma T1C+", 40],["Tuberculoma T2", 33],["Germinoma T2", 33],["Granuloma T1C+", 31],
+  ["Granuloma T1", 30],["Tuberculoma T1", 28],["Germinoma T1", 27],["Ganglioglioma T2", 23],
+  ["Meduloblastoma T1", 23],["Ganglioglioma T1", 20],["Ganglioglioma T1C+", 18],["Granuloma T2", 17]
+];
+
+const mean = 101.8;
+const max = 369;
+const chart = document.getElementById('chart');
+
+data.forEach(([name, count]) => {
+  const pct = (count / max) * 100;
+  const meanPct = (mean / max) * 100;
+  const aboveMean = count >= mean;
+  const color = aboveMean ? '#8b5cf6' : '#3b82f6';
+
+  const row = document.createElement('div');
+  row.className = 'bar-row';
+  row.innerHTML = `
+    <div class="bar-label" title="${name}">${name}</div>
+    <div class="bar-wrap">
+      <div class="bar-fill" style="width:${pct.toFixed(1)}%;background:${color};"></div>
+      <div style="position:absolute;top:0;left:${meanPct.toFixed(1)}%;width:2px;height:100%;background:#ef4444;opacity:0.8;"></div>
+    </div>
+    <div class="bar-count">${count}</div>
+  `;
+  chart.appendChild(row);
+});
+</script>

@@ -1,18 +1,14 @@
-# ── Datasets ──────────────────────────────────────────────────────
+# Datasets 
 Training Models/data/dataset1/
 Training Models/data/dataset2/
 Training Models/data/dataset3/
 Training Models/data/*.zip
 
-# ── Preprocessed tensors ──────────────────────────────────────────
-Training Models/data/*.pt
-brain_mri_preprocessed/
-
-# ── Model outputs ─────────────────────────────────────────────────
+#  Model outputs
 outputs/
 *.pth
 
-# ── Python ────────────────────────────────────────────────────────
+#  Python 
 __pycache__/
 *.py[cod]
 .env
@@ -20,12 +16,24 @@ __pycache__/
 dist/
 build/
 
-# ── Jupyter ───────────────────────────────────────────────────────
+#Jupyter 
 .ipynb_checkpoints/
 
-# ── OS ────────────────────────────────────────────────────────────
+#  OS 
 .DS_Store
 Thumbs.db
 
-# ── Kaggle credentials ────────────────────────────────────────────
+#  Kaggle credentials 
 kaggle.json
+
+#Ablative Study datasets
+Ablative Study/data/*.zip
+Ablative Study/data/dataset2/
+Ablative Study/data/dataset3/
+
+# Preprocessed tensors (too large for GitHub, regenerate via preprocessing notebook)
+*.pt
+brain_mri_preprocessed/
+Training Models/brain_mri_preprocessed/
+Ablative Study/brain_mri_preprocessed/
+

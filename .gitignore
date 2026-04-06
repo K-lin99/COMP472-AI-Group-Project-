@@ -3,7 +3,7 @@ Training Models/data/dataset1/
 Training Models/data/dataset2/
 Training Models/data/dataset3/
 Training Models/data/*.zip
-
+sample_test_set/
 #  Model outputs
 outputs/
 *.pth

@@ -77,7 +77,7 @@ To run a pre-trained model on it, load the saved `.pth` checkpoint in the corres
 ## Source Code
 
 ```
-Colab Files/
+Older Colab Files/
   preprocessing.ipynb
   mobilenet_v2_brain_tumor.ipynb
   efficientNet_B2.ipynb
@@ -87,6 +87,7 @@ Training Models/
   preprocessing.ipynb
   efficientnet_b2.ipynb
   resnet_34.ipynb
+  mobilenet_v2_brain_tumor.ipynb
 
 Transfer Learning/
   efficientnet_b2_transfer_learning.ipynb

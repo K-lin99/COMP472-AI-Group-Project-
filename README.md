@@ -45,12 +45,12 @@ Place your `kaggle.json` credentials at `~/.kaggle/kaggle.json` (download from k
 2. Run the training notebook for the desired model:
 
    **From scratch**
-   - `Colab Files/mobilenet_v2_brain_tumor.ipynb` (MobileNetV2)
+   - `Training Models/mobilenet_v2_brain_tumor.ipynb` (MobileNetV2 - Google Colab file) 
    - `Training Models/efficientnet_b2.ipynb` (EfficientNet-B2)
    - `Training Models/resnet_34.ipynb` (ResNet-34)
 
-      **Hyperparameter tuning with Optuna**
-   - `Colab Files/mobilenet_v2_brain_tumor.ipynb` (MobileNetV2, includes hyperparameter tuning)
+   **Hyperparameter tuning with Optuna**
+   - `Training Models/mobilenet_v2_brain_tumor.ipynb` (MobileNetV2, includes hyperparameter tuning)
 
    **Transfer learning**
    - `Transfer Learning/efficientnet_b2_transfer_learning.ipynb`
